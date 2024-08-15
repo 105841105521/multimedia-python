@@ -1,5 +1,5 @@
 from pydub import AudioSegment
-import simpleaudio as sa
+import pygame
 
 # Memuat file audio
 audio = AudioSegment.from_file('AUDIO.mp3')
@@ -19,9 +19,11 @@ combined_audio.export('combined_result.mp3', format='mp3')
 louder_audio = audio + 10
 louder_audio.export('louder_result.mp3', format='mp3')
 
-# Memutar file audio hasil konversi
-wave_obj = sa.WaveObject.from_wave_file('result.wav')
-play_obj = wave_obj.play()
+# Memutar file audio hasil konversi dengan pygame
+pygame.init()
+pygame.mixer.init()
+sound = pygame.mixer.Sound('result.wav')
+sound.play()
 
 # Menunggu sampai audio selesai diputar
-play_obj.wait_done()
+pygame.time.wait(int(sound.get_length() * 1000))  
